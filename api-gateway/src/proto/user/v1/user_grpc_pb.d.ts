@@ -1,0 +1,58 @@
+// package: user.v1
+// file: user.proto
+
+/* tslint:disable */
+/* eslint-disable */
+
+import * as grpc from "@grpc/grpc-js";
+import * as user_pb from "./user_pb";
+
+interface IUserServiceService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
+    getUserByEmail: IUserServiceService_IGetUserByEmail;
+    getAllUsers: IUserServiceService_IGetAllUsers;
+}
+
+interface IUserServiceService_IGetUserByEmail extends grpc.MethodDefinition<user_pb.GetUserRequest, user_pb.GetUserResponse> {
+    path: "/user.v1.UserService/GetUserByEmail";
+    requestStream: false;
+    responseStream: false;
+    requestSerialize: grpc.serialize<user_pb.GetUserRequest>;
+    requestDeserialize: grpc.deserialize<user_pb.GetUserRequest>;
+    responseSerialize: grpc.serialize<user_pb.GetUserResponse>;
+    responseDeserialize: grpc.deserialize<user_pb.GetUserResponse>;
+}
+interface IUserServiceService_IGetAllUsers extends grpc.MethodDefinition<user_pb.GetAllUsersRequest, user_pb.GetAllUsersResponse> {
+    path: "/user.v1.UserService/GetAllUsers";
+    requestStream: false;
+    responseStream: false;
+    requestSerialize: grpc.serialize<user_pb.GetAllUsersRequest>;
+    requestDeserialize: grpc.deserialize<user_pb.GetAllUsersRequest>;
+    responseSerialize: grpc.serialize<user_pb.GetAllUsersResponse>;
+    responseDeserialize: grpc.deserialize<user_pb.GetAllUsersResponse>;
+}
+
+export const UserServiceService: IUserServiceService;
+
+export interface IUserServiceServer extends grpc.UntypedServiceImplementation {
+    getUserByEmail: grpc.handleUnaryCall<user_pb.GetUserRequest, user_pb.GetUserResponse>;
+    getAllUsers: grpc.handleUnaryCall<user_pb.GetAllUsersRequest, user_pb.GetAllUsersResponse>;
+}
+
+export interface IUserServiceClient {
+    getUserByEmail(request: user_pb.GetUserRequest, callback: (error: grpc.ServiceError | null, response: user_pb.GetUserResponse) => void): grpc.ClientUnaryCall;
+    getUserByEmail(request: user_pb.GetUserRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: user_pb.GetUserResponse) => void): grpc.ClientUnaryCall;
+    getUserByEmail(request: user_pb.GetUserRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: user_pb.GetUserResponse) => void): grpc.ClientUnaryCall;
+    getAllUsers(request: user_pb.GetAllUsersRequest, callback: (error: grpc.ServiceError | null, response: user_pb.GetAllUsersResponse) => void): grpc.ClientUnaryCall;
+    getAllUsers(request: user_pb.GetAllUsersRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: user_pb.GetAllUsersResponse) => void): grpc.ClientUnaryCall;
+    getAllUsers(request: user_pb.GetAllUsersRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: user_pb.GetAllUsersResponse) => void): grpc.ClientUnaryCall;
+}
+
+export class UserServiceClient extends grpc.Client implements IUserServiceClient {
+    constructor(address: string, credentials: grpc.ChannelCredentials, options?: Partial<grpc.ClientOptions>);
+    public getUserByEmail(request: user_pb.GetUserRequest, callback: (error: grpc.ServiceError | null, response: user_pb.GetUserResponse) => void): grpc.ClientUnaryCall;
+    public getUserByEmail(request: user_pb.GetUserRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: user_pb.GetUserResponse) => void): grpc.ClientUnaryCall;
+    public getUserByEmail(request: user_pb.GetUserRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: user_pb.GetUserResponse) => void): grpc.ClientUnaryCall;
+    public getAllUsers(request: user_pb.GetAllUsersRequest, callback: (error: grpc.ServiceError | null, response: user_pb.GetAllUsersResponse) => void): grpc.ClientUnaryCall;
+    public getAllUsers(request: user_pb.GetAllUsersRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: user_pb.GetAllUsersResponse) => void): grpc.ClientUnaryCall;
+    public getAllUsers(request: user_pb.GetAllUsersRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: user_pb.GetAllUsersResponse) => void): grpc.ClientUnaryCall;
+}

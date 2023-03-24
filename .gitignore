@@ -1,0 +1,8 @@
+.idea
+
+./user-service/.idea
+./user-service/venv
+./user-service/__pycache__/
+
+./api-gateway/node_modules
+./api-gateway/learnings
