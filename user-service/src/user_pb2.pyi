@@ -16,10 +16,10 @@ class GetAllUsersResponse(_message.Message):
     def __init__(self, users: _Optional[_Iterable[_Union[User, _Mapping]]] = ...) -> None: ...
 
 class GetUserRequest(_message.Message):
-    __slots__ = ["email"]
-    EMAIL_FIELD_NUMBER: _ClassVar[int]
-    email: str
-    def __init__(self, email: _Optional[str] = ...) -> None: ...
+    __slots__ = ["id"]
+    ID_FIELD_NUMBER: _ClassVar[int]
+    id: int
+    def __init__(self, id: _Optional[int] = ...) -> None: ...
 
 class GetUserResponse(_message.Message):
     __slots__ = ["user"]

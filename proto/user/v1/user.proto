@@ -10,7 +10,7 @@ message User {
 }
 
 message GetUserRequest {
-  string email = 1;
+  int32 id = 1;
 }
 
 message GetUserResponse {
@@ -24,7 +24,7 @@ message GetAllUsersResponse {
 }
 
 service UserService {
-  rpc GetUserByEmail(GetUserRequest) returns (GetUserResponse);
+  rpc GetUserById(GetUserRequest) returns (GetUserResponse);
   rpc GetAllUsers(GetAllUsersRequest) returns (GetAllUsersResponse);
 }
 

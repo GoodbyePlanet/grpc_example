@@ -14,8 +14,8 @@ class UserServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.GetUserByEmail = channel.unary_unary(
-                '/user.v1.UserService/GetUserByEmail',
+        self.GetUserById = channel.unary_unary(
+                '/user.v1.UserService/GetUserById',
                 request_serializer=user__pb2.GetUserRequest.SerializeToString,
                 response_deserializer=user__pb2.GetUserResponse.FromString,
                 )
@@ -29,7 +29,7 @@ class UserServiceStub(object):
 class UserServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def GetUserByEmail(self, request, context):
+    def GetUserById(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -44,8 +44,8 @@ class UserServiceServicer(object):
 
 def add_UserServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'GetUserByEmail': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetUserByEmail,
+            'GetUserById': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetUserById,
                     request_deserializer=user__pb2.GetUserRequest.FromString,
                     response_serializer=user__pb2.GetUserResponse.SerializeToString,
             ),
@@ -65,7 +65,7 @@ class UserService(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def GetUserByEmail(request,
+    def GetUserById(request,
             target,
             options=(),
             channel_credentials=None,
@@ -75,7 +75,7 @@ class UserService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/user.v1.UserService/GetUserByEmail',
+        return grpc.experimental.unary_unary(request, target, '/user.v1.UserService/GetUserById',
             user__pb2.GetUserRequest.SerializeToString,
             user__pb2.GetUserResponse.FromString,
             options, channel_credentials,

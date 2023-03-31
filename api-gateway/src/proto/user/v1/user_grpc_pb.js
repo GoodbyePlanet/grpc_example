@@ -50,8 +50,8 @@ function deserialize_user_v1_GetUserResponse(buffer_arg) {
 
 
 var UserServiceService = exports.UserServiceService = {
-  getUserByEmail: {
-    path: '/user.v1.UserService/GetUserByEmail',
+  getUserById: {
+    path: '/user.v1.UserService/GetUserById',
     requestStream: false,
     responseStream: false,
     requestType: user_pb.GetUserRequest,

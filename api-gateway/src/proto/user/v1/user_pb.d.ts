@@ -36,8 +36,8 @@ export namespace User {
 }
 
 export class GetUserRequest extends jspb.Message { 
-    getEmail(): string;
-    setEmail(value: string): GetUserRequest;
+    getId(): number;
+    setId(value: number): GetUserRequest;
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): GetUserRequest.AsObject;
@@ -51,7 +51,7 @@ export class GetUserRequest extends jspb.Message {
 
 export namespace GetUserRequest {
     export type AsObject = {
-        email: string,
+        id: number,
     }
 }
 
