@@ -1,6 +1,6 @@
 import {credentials, ServiceError} from "@grpc/grpc-js";
 import {UserServiceClient} from "../proto/user/v1/user_grpc_pb";
-import {GetAllUsersRequest, GetAllUsersResponse, GetUserRequest, GetUserResponse, User} from "../proto/user/v1/user_pb";
+import {GetAllUsersRequest, GetAllUsersResponse, GetUserRequest, GetUserResponse} from "../proto/user/v1/user_pb";
 
 export class UserService {
   service: UserServiceClient;
@@ -20,7 +20,6 @@ export class UserService {
       callback(response.toObject());
     });
   }
-
 
   getUserById(id: number, callback: (user: GetUserResponse.AsObject | null) => void): void {
     const userRequest: GetUserRequest = new GetUserRequest();

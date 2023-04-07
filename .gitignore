@@ -6,3 +6,5 @@
 
 ./api-gateway/node_modules
 ./api-gateway/learnings
+
+./OrderService/target
