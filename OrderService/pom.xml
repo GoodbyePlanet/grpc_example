@@ -18,17 +18,17 @@
         <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-netty-shaded</artifactId>
-            <version>1.38.0</version>
+            <version>1.53.0</version>
         </dependency>
         <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-protobuf</artifactId>
-            <version>1.38.0</version>
+            <version>1.53.0</version>
         </dependency>
         <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-stub</artifactId>
-            <version>1.38.0</version>
+            <version>1.53.0</version>
         </dependency>
         <dependency> <!-- necessary for Java 9+ -->
             <groupId>org.apache.tomcat</groupId>
@@ -41,6 +41,11 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>1.7.30</version>
+        </dependency>
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-googleapis</artifactId>
+            <version>1.53.0</version>
         </dependency>
     </dependencies>
 
@@ -106,6 +111,21 @@
                     </execution>
                 </executions>
             </plugin>
+            	<plugin>
+                <!-- Build an executable JAR -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                  <archive>
+                    <manifest>
+                      <addClasspath>true</addClasspath>
+                      <!-- here we specify that we want to use the main method within the App class -->
+                      <mainClass>org.order.service.OrderService</mainClass>
+                    </manifest>
+                  </archive>
+                </configuration>
+              </plugin>
         </plugins>
     </build>
 

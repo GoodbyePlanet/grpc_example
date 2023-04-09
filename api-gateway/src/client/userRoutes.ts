@@ -1,11 +1,11 @@
 import {Application, Request, Response} from "express";
 import {UserService} from "./userService";
-import {GetAllUsersResponse, GetUserResponse, User} from "../proto/user/v1/user_pb";
+import {GetAllUsersResponse, GetUserResponse} from "../proto/user/v1/user_pb";
 
 const userService = new UserService();
 
 export const userRoutes = (app: Application) => {
-  app.get("/api/users", (req: Request, res: Response) => {
+  app.get("/api/users", (_: Request, res: Response) => {
     userService.getAllUsers((users: GetAllUsersResponse.AsObject) => res.send(users));
   });
 

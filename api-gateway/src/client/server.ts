@@ -1,4 +1,4 @@
- mport express from "express";
+import express from "express";
 import {userRoutes} from "./userRoutes";
 
 const PORT = 4000;
