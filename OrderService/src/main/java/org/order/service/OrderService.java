@@ -1,8 +1,14 @@
 package org.order.service;
 
 import java.io.IOException;
+import java.security.InvalidParameterException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
@@ -39,22 +45,43 @@ public class OrderService {
 
     static class OrderServiceImpl extends OrderServiceImplBase {
 
-        private Builder getOrderBuilder() {
-            Timestamp timestamp = Timestamp.newBuilder()
+        private Timestamp getTimestamp() {
+            return Timestamp.newBuilder()
                 .setSeconds(System.currentTimeMillis() / 1000)
                 .setNanos((int) ((System.currentTimeMillis() % 1000) * 1000000))
                 .build();
+        }
 
-            return Order.newBuilder().setUserId(1).setOrderId(1).setTotalAmount(10)
-                .setOrderDate(timestamp);
+        private List<Order> orders() {
+            List<Order> ordersList = new ArrayList<>();
+
+            ordersList.add(Order.newBuilder().setUserId(1).setOrderId(1).setTotalAmount(1000).setOrderDate(getTimestamp()).build());
+            ordersList.add(Order.newBuilder().setUserId(1).setOrderId(2).setTotalAmount(1960).setOrderDate(getTimestamp()).build());
+            ordersList.add(Order.newBuilder().setUserId(1).setOrderId(5).setTotalAmount(2960).setOrderDate(getTimestamp()).build());
+            ordersList.add(Order.newBuilder().setUserId(2).setOrderId(200).setTotalAmount(1560).setOrderDate(getTimestamp()).build());
+
+            return ordersList;
+        }
+
+        private Iterable<Order> ordersByUserId(int userId) {
+            return () -> orders()
+                .stream()
+                .filter(order -> order.getUserId() == userId)
+                .iterator();
         }
 
         @Override
         public void getOrdersByUserId(OrdersByUserIdRequest request, StreamObserver<OrdersByUserIdResponse> responseObserver) {
-            logger.info("Get order by user id " + request);
+            logger.info("Get orders by user id " + request);
+
+            if (request.getUserId() <= 0) {
+                logger.log(Level.SEVERE, "Request contain invalid user ID!");
+
+                throw new InvalidParameterException("Request must contain valid user ID.");
+            }
 
             OrdersByUserIdResponse response =  OrdersByUserIdResponse.newBuilder()
-                .addOrders(getOrderBuilder())
+                .addAllOrders(ordersByUserId(request.getUserId()))
                 .build();
             responseObserver.onNext(response);
             responseObserver.onCompleted();
