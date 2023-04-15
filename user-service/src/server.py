@@ -33,7 +33,7 @@ class OrdersServiceClient:
 
     def get_orders_by_user_id(self, id):
         order_request = order_pb2.OrdersByUserIdRequest(user_id=id)
-        print(f'ORDER REQUEST: {order_request}')
+        print(f'Order request: {order_request}')
 
         orders_response = self.stub.GetOrdersByUserId(order_request)
 
@@ -52,12 +52,15 @@ class UserService(user_pb2_grpc.UserServiceServicer):
         user_by_id = list(filter(lambda u: u.id == request.id, users))[0]
 
         if user_by_id:
-            orders_response = self.orders_client.get_orders_by_user_id(id=request.id)
-            user_by_id.orders.extend(orders_response.orders)
+            try:
+                orders_response = self.orders_client.get_orders_by_user_id(id=request.id)
+                user_by_id.orders.extend(orders_response.orders)
+            except:
+                raise NotFoundException(f'Orders user with ID: ${request.id} not found!')
 
             return user_pb2.GetUserResponse(user=user_by_id)
         else:
-            raise NotFoundException(f'User with id: {request.id} not found')
+            raise NotFoundException(f'User with ID: {request.id} not found!')
 
     def GetAllUsers(self, request, context):
         print("Getting all users")

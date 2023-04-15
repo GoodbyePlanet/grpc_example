@@ -90,6 +90,7 @@ public class OrderService {
 
     public static void main(String[] args) throws IOException, InterruptedException {
         OrderService orderService = new OrderService();
+
         orderService.start();
         orderService.server.awaitTermination();
     }
