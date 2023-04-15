@@ -1,7 +1,7 @@
 import {Application, Request, Response} from "express";
 
-import {UserService} from "./userService";
 import {GetAllUsersResponse, GetUserResponse} from "../proto/user/v1/user_pb";
+import {UserService} from "./userService";
 
 const userService = new UserService();
 

@@ -2,6 +2,7 @@
 
 'use strict';
 var grpc = require('@grpc/grpc-js');
+
 var auth_pb = require('./auth_pb.js');
 
 function serialize_auth_v1_LoginRequest(arg) {

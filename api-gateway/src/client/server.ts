@@ -1,7 +1,7 @@
 import express from "express";
 
-import {userRoutes} from "./userRoutes";
 import {initializeLogger} from "./logger";
+import {userRoutes} from "./userRoutes";
 
 const PORT = 4000;
 const app = express();

@@ -1,6 +1,7 @@
-import {credentials, ServiceError} from "@grpc/grpc-js";
-import {UserServiceClient} from "../proto/user/v1/user_grpc_pb";
+import {ServiceError, credentials} from "@grpc/grpc-js";
+
 import {GetAllUsersRequest, GetAllUsersResponse, GetUserRequest, GetUserResponse} from "../proto/user/v1/user_pb";
+import {UserServiceClient} from "../proto/user/v1/user_grpc_pb";
 
 export class UserService {
   service: UserServiceClient;

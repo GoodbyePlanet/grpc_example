@@ -1,9 +1,10 @@
-import { sendUnaryData, Server, ServerCredentials, ServerUnaryCall } from "@grpc/grpc-js";
-import { AuthServiceService } from "../proto/auth/v1/auth_grpc_pb";
-import { LoginRequest, LoginResponse } from "../proto/auth/v1/auth_pb";
+import {Server, ServerCredentials, ServerUnaryCall, sendUnaryData} from "@grpc/grpc-js";
+
+import {LoginRequest, LoginResponse} from "../proto/auth/v1/auth_pb";
+import {AuthServiceService} from "../proto/auth/v1/auth_grpc_pb";
 
 const users = [
-  { id: 0, username: "admin", password: "qwerty" }
+  {id: 0, username: "admin", password: "qwerty"}
 ]
 
 const login = (
@@ -32,7 +33,7 @@ const login = (
 
 const server = new Server();
 
-server.addService(AuthServiceService, { login });
+server.addService(AuthServiceService, {login});
 server.bindAsync("localhost:8080", ServerCredentials.createInsecure(), () => {
   console.log("Starting server on port  8080");
 
