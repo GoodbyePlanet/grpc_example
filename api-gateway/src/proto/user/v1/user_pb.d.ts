@@ -1,10 +1,11 @@
 // package: user.v1
-// file: user.proto
+// file: user/v1/user.proto
 
 /* tslint:disable */
 /* eslint-disable */
 
 import * as jspb from "google-protobuf";
+import * as orders_v1_order_pb from "../../orders/v1/order_pb";
 
 export class User extends jspb.Message { 
     getId(): number;
@@ -15,6 +16,10 @@ export class User extends jspb.Message {
     setLastName(value: string): User;
     getEmail(): string;
     setEmail(value: string): User;
+    clearOrdersList(): void;
+    getOrdersList(): Array<orders_v1_order_pb.Order>;
+    setOrdersList(value: Array<orders_v1_order_pb.Order>): User;
+    addOrders(value?: orders_v1_order_pb.Order, index?: number): orders_v1_order_pb.Order;
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): User.AsObject;
@@ -32,6 +37,7 @@ export namespace User {
         firstName: string,
         lastName: string,
         email: string,
+        ordersList: Array<orders_v1_order_pb.Order.AsObject>,
     }
 }
 

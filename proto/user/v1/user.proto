@@ -2,11 +2,14 @@ syntax = "proto3";
 
 package user.v1;
 
+import "orders/v1/order.proto";
+
 message User {
   int32 id = 1;
   string first_name = 2;
   string last_name = 3;
   string email = 4;
+  repeated orders.v1.Order orders = 5;
 }
 
 message GetUserRequest {

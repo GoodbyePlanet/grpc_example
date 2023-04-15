@@ -1,4 +1,4 @@
-// source: user.proto
+// source: user/v1/user.proto
 /**
  * @fileoverview
  * @enhanceable
@@ -21,6 +21,8 @@ var global = (function() {
   return Function('return this')();
 }.call(null));
 
+var orders_v1_order_pb = require('../../orders/v1/order_pb.js');
+goog.object.extend(proto, orders_v1_order_pb);
 goog.exportSymbol('proto.user.v1.GetAllUsersRequest', null, global);
 goog.exportSymbol('proto.user.v1.GetAllUsersResponse', null, global);
 goog.exportSymbol('proto.user.v1.GetUserRequest', null, global);
@@ -37,7 +39,7 @@ goog.exportSymbol('proto.user.v1.User', null, global);
  * @constructor
  */
 proto.user.v1.User = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.user.v1.User.repeatedFields_, null);
 };
 goog.inherits(proto.user.v1.User, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
@@ -132,6 +134,13 @@ if (goog.DEBUG && !COMPILED) {
   proto.user.v1.GetAllUsersResponse.displayName = 'proto.user.v1.GetAllUsersResponse';
 }
 
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.user.v1.User.repeatedFields_ = [5];
+
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
@@ -166,7 +175,9 @@ proto.user.v1.User.toObject = function(includeInstance, msg) {
     id: jspb.Message.getFieldWithDefault(msg, 1, 0),
     firstName: jspb.Message.getFieldWithDefault(msg, 2, ""),
     lastName: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    email: jspb.Message.getFieldWithDefault(msg, 4, "")
+    email: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    ordersList: jspb.Message.toObjectList(msg.getOrdersList(),
+    orders_v1_order_pb.Order.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -218,6 +229,11 @@ proto.user.v1.User.deserializeBinaryFromReader = function(msg, reader) {
     case 4:
       var value = /** @type {string} */ (reader.readString());
       msg.setEmail(value);
+      break;
+    case 5:
+      var value = new orders_v1_order_pb.Order;
+      reader.readMessage(value,orders_v1_order_pb.Order.deserializeBinaryFromReader);
+      msg.addOrders(value);
       break;
     default:
       reader.skipField();
@@ -274,6 +290,14 @@ proto.user.v1.User.serializeBinaryToWriter = function(message, writer) {
     writer.writeString(
       4,
       f
+    );
+  }
+  f = message.getOrdersList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      5,
+      f,
+      orders_v1_order_pb.Order.serializeBinaryToWriter
     );
   }
 };
@@ -348,6 +372,44 @@ proto.user.v1.User.prototype.getEmail = function() {
  */
 proto.user.v1.User.prototype.setEmail = function(value) {
   return jspb.Message.setProto3StringField(this, 4, value);
+};
+
+
+/**
+ * repeated orders.v1.Order orders = 5;
+ * @return {!Array<!proto.orders.v1.Order>}
+ */
+proto.user.v1.User.prototype.getOrdersList = function() {
+  return /** @type{!Array<!proto.orders.v1.Order>} */ (
+    jspb.Message.getRepeatedWrapperField(this, orders_v1_order_pb.Order, 5));
+};
+
+
+/**
+ * @param {!Array<!proto.orders.v1.Order>} value
+ * @return {!proto.user.v1.User} returns this
+*/
+proto.user.v1.User.prototype.setOrdersList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 5, value);
+};
+
+
+/**
+ * @param {!proto.orders.v1.Order=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.orders.v1.Order}
+ */
+proto.user.v1.User.prototype.addOrders = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 5, opt_value, proto.orders.v1.Order, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.user.v1.User} returns this
+ */
+proto.user.v1.User.prototype.clearOrdersList = function() {
+  return this.setOrdersList([]);
 };
 
 

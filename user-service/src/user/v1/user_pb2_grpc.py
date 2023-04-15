@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import user_pb2 as user__pb2
+from user.v1 import user_pb2 as user_dot_v1_dot_user__pb2
 
 
 class UserServiceStub(object):
@@ -16,13 +16,13 @@ class UserServiceStub(object):
         """
         self.GetUserById = channel.unary_unary(
                 '/user.v1.UserService/GetUserById',
-                request_serializer=user__pb2.GetUserRequest.SerializeToString,
-                response_deserializer=user__pb2.GetUserResponse.FromString,
+                request_serializer=user_dot_v1_dot_user__pb2.GetUserRequest.SerializeToString,
+                response_deserializer=user_dot_v1_dot_user__pb2.GetUserResponse.FromString,
                 )
         self.GetAllUsers = channel.unary_unary(
                 '/user.v1.UserService/GetAllUsers',
-                request_serializer=user__pb2.GetAllUsersRequest.SerializeToString,
-                response_deserializer=user__pb2.GetAllUsersResponse.FromString,
+                request_serializer=user_dot_v1_dot_user__pb2.GetAllUsersRequest.SerializeToString,
+                response_deserializer=user_dot_v1_dot_user__pb2.GetAllUsersResponse.FromString,
                 )
 
 
@@ -46,13 +46,13 @@ def add_UserServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'GetUserById': grpc.unary_unary_rpc_method_handler(
                     servicer.GetUserById,
-                    request_deserializer=user__pb2.GetUserRequest.FromString,
-                    response_serializer=user__pb2.GetUserResponse.SerializeToString,
+                    request_deserializer=user_dot_v1_dot_user__pb2.GetUserRequest.FromString,
+                    response_serializer=user_dot_v1_dot_user__pb2.GetUserResponse.SerializeToString,
             ),
             'GetAllUsers': grpc.unary_unary_rpc_method_handler(
                     servicer.GetAllUsers,
-                    request_deserializer=user__pb2.GetAllUsersRequest.FromString,
-                    response_serializer=user__pb2.GetAllUsersResponse.SerializeToString,
+                    request_deserializer=user_dot_v1_dot_user__pb2.GetAllUsersRequest.FromString,
+                    response_serializer=user_dot_v1_dot_user__pb2.GetAllUsersResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -76,8 +76,8 @@ class UserService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/user.v1.UserService/GetUserById',
-            user__pb2.GetUserRequest.SerializeToString,
-            user__pb2.GetUserResponse.FromString,
+            user_dot_v1_dot_user__pb2.GetUserRequest.SerializeToString,
+            user_dot_v1_dot_user__pb2.GetUserResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -93,7 +93,7 @@ class UserService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/user.v1.UserService/GetAllUsers',
-            user__pb2.GetAllUsersRequest.SerializeToString,
-            user__pb2.GetAllUsersResponse.FromString,
+            user_dot_v1_dot_user__pb2.GetAllUsersRequest.SerializeToString,
+            user_dot_v1_dot_user__pb2.GetAllUsersResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

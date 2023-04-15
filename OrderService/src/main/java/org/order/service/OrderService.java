@@ -3,28 +3,24 @@ package org.order.service;
 import java.io.IOException;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
+
+import com.google.protobuf.Timestamp;
 
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
-import org.order.service.Order.Builder;
-import org.order.service.Order;
-import org.order.service.OrdersByUserIdRequest;
-import org.order.service.OrdersByUserIdResponse;
-import org.order.service.OrderServiceGrpc.OrderServiceImplBase;
-import org.order.service.OrdersByUserIdResponse;
-
-import com.google.protobuf.Timestamp;
-import com.google.protobuf.TimestampOrBuilder;
+import orders.v1.Order;
+import orders.v1.OrderServiceGrpc.OrderServiceImplBase;
+import orders.v1.OrdersByUserIdRequest;
+import orders.v1.OrdersByUserIdResponse;
 
 public class OrderService {
     private static final Logger logger = Logger.getLogger(OrderService.class.getName());
+
     private Server server;
 
     private void start() throws IOException {
@@ -55,10 +51,14 @@ public class OrderService {
         private List<Order> orders() {
             List<Order> ordersList = new ArrayList<>();
 
-            ordersList.add(Order.newBuilder().setUserId(1).setOrderId(1).setTotalAmount(1000).setOrderDate(getTimestamp()).build());
-            ordersList.add(Order.newBuilder().setUserId(1).setOrderId(2).setTotalAmount(1960).setOrderDate(getTimestamp()).build());
-            ordersList.add(Order.newBuilder().setUserId(1).setOrderId(5).setTotalAmount(2960).setOrderDate(getTimestamp()).build());
-            ordersList.add(Order.newBuilder().setUserId(2).setOrderId(200).setTotalAmount(1560).setOrderDate(getTimestamp()).build());
+            ordersList.add(Order.newBuilder().setUserId(1).setOrderId(1).setTotalAmount(1000)
+                .setOrderDate(getTimestamp()).build());
+            ordersList.add(Order.newBuilder().setUserId(1).setOrderId(2).setTotalAmount(1960)
+                .setOrderDate(getTimestamp()).build());
+            ordersList.add(Order.newBuilder().setUserId(1).setOrderId(5).setTotalAmount(2960)
+                .setOrderDate(getTimestamp()).build());
+            ordersList.add(Order.newBuilder().setUserId(2).setOrderId(200).setTotalAmount(1560)
+                .setOrderDate(getTimestamp()).build());
 
             return ordersList;
         }
@@ -80,12 +80,30 @@ public class OrderService {
                 throw new InvalidParameterException("Request must contain valid user ID.");
             }
 
-            OrdersByUserIdResponse response =  OrdersByUserIdResponse.newBuilder()
+            OrdersByUserIdResponse response = OrdersByUserIdResponse.newBuilder()
                 .addAllOrders(ordersByUserId(request.getUserId()))
                 .build();
             responseObserver.onNext(response);
             responseObserver.onCompleted();
         }
+
+        //        @Override
+        //        public void getOrdersByUserId(OrdersByUserIdRequest request,
+        //            StreamObserver<OrdersByUserIdResponse> responseObserver) {
+        //            logger.info("Get orders by user id " + request);
+        //
+        //            if (request.getUserId() <= 0) {
+        //                logger.log(Level.SEVERE, "Request contain invalid user ID!");
+        //
+        //                throw new InvalidParameterException("Request must contain valid user ID.");
+        //            }
+        //
+        //            OrdersByUserIdResponse response = OrdersByUserIdResponse.newBuilder()
+        //                .addAllOrders(ordersByUserId(request.getUserId()))
+        //                .build();
+        //            responseObserver.onNext(response);
+        //            responseObserver.onCompleted();
+        //        }
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {

@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import order_pb2 as order__pb2
+from orders.v1 import order_pb2 as orders_dot_v1_dot_order__pb2
 
 
 class OrderServiceStub(object):
@@ -15,9 +15,9 @@ class OrderServiceStub(object):
             channel: A grpc.Channel.
         """
         self.GetOrdersByUserId = channel.unary_unary(
-                '/org.order.service.OrderService/GetOrdersByUserId',
-                request_serializer=order__pb2.OrdersByUserIdRequest.SerializeToString,
-                response_deserializer=order__pb2.OrdersByUserIdResponse.FromString,
+                '/orders.v1.OrderService/GetOrdersByUserId',
+                request_serializer=orders_dot_v1_dot_order__pb2.OrdersByUserIdRequest.SerializeToString,
+                response_deserializer=orders_dot_v1_dot_order__pb2.OrdersByUserIdResponse.FromString,
                 )
 
 
@@ -35,12 +35,12 @@ def add_OrderServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'GetOrdersByUserId': grpc.unary_unary_rpc_method_handler(
                     servicer.GetOrdersByUserId,
-                    request_deserializer=order__pb2.OrdersByUserIdRequest.FromString,
-                    response_serializer=order__pb2.OrdersByUserIdResponse.SerializeToString,
+                    request_deserializer=orders_dot_v1_dot_order__pb2.OrdersByUserIdRequest.FromString,
+                    response_serializer=orders_dot_v1_dot_order__pb2.OrdersByUserIdResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'org.order.service.OrderService', rpc_method_handlers)
+            'orders.v1.OrderService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
@@ -59,8 +59,8 @@ class OrderService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/org.order.service.OrderService/GetOrdersByUserId',
-            order__pb2.OrdersByUserIdRequest.SerializeToString,
-            order__pb2.OrdersByUserIdResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/orders.v1.OrderService/GetOrdersByUserId',
+            orders_dot_v1_dot_order__pb2.OrdersByUserIdRequest.SerializeToString,
+            orders_dot_v1_dot_order__pb2.OrdersByUserIdResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

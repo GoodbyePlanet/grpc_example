@@ -2,18 +2,17 @@ from concurrent import futures
 
 import grpc
 
-
-import user_pb2
-import user_pb2_grpc
-import order_pb2_grpc
-import order_pb2
+from orders.v1 import order_pb2
+from orders.v1 import order_pb2_grpc
+from user.v1 import user_pb2
+from user.v1 import user_pb2_grpc
 
 user = user_pb2.User
 
 users = [
-   user(id=1, first_name="Petar", last_name="Petrovic", email="petar.petrovic@gmail.com"),
-   user(id=2, first_name="Jovan", last_name="Jovanovic", email="jovan.jovanovic@gmail.com"),
-   user(id=3, first_name="Jovica", last_name="Jovic", email="jovica.jovic@gmail.com"),
+    user(id=1, first_name="Petar", last_name="Petrovic", email="petar.petrovic@gmail.com"),
+    user(id=2, first_name="Jovan", last_name="Jovanovic", email="jovan.jovanovic@gmail.com"),
+    user(id=3, first_name="Jovica", last_name="Jovic", email="jovica.jovic@gmail.com"),
 ]
 
 
@@ -21,7 +20,7 @@ class NotFoundException(Exception):
     pass
 
 
-class OrdersServiceClient():
+class OrdersServiceClient:
 
     def __init__(self) -> None:
         self.host = "localhost"
@@ -41,8 +40,6 @@ class OrdersServiceClient():
         return orders_response
 
 
-
-
 class UserService(user_pb2_grpc.UserServiceServicer):
 
     def __init__(self) -> None:
@@ -52,13 +49,13 @@ class UserService(user_pb2_grpc.UserServiceServicer):
 
     def GetUserById(self, request, context):
         print("Getting user by id request", str(request.id))
-        filtered_users = list(filter(lambda u: u.id == request.id, users))
+        user_by_id = list(filter(lambda u: u.id == request.id, users))[0]
 
-        if filtered_users:
-            orders = self.orders_client.get_orders_by_user_id(id=request.id)
-            print(f'ORDERS: {orders}')
+        if user_by_id:
+            orders_response = self.orders_client.get_orders_by_user_id(id=request.id)
+            user_by_id.orders.extend(orders_response.orders)
 
-            return user_pb2.GetUserResponse(user=filtered_users[0])
+            return user_pb2.GetUserResponse(user=user_by_id)
         else:
             raise NotFoundException(f'User with id: {request.id} not found')
 

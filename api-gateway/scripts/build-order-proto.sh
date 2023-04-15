@@ -14,4 +14,4 @@ yarn run grpc_tools_node_protoc \
 	--js_out=import_style=commonjs,binary:${PROTO_DEST} \
 	--grpc_out=grpc_js:${PROTO_DEST} \
 	-I ../proto \
-	../proto/user/v1/*.proto
+	../proto/orders/v1/*.proto
