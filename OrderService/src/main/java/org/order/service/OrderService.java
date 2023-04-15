@@ -86,24 +86,6 @@ public class OrderService {
             responseObserver.onNext(response);
             responseObserver.onCompleted();
         }
-
-        //        @Override
-        //        public void getOrdersByUserId(OrdersByUserIdRequest request,
-        //            StreamObserver<OrdersByUserIdResponse> responseObserver) {
-        //            logger.info("Get orders by user id " + request);
-        //
-        //            if (request.getUserId() <= 0) {
-        //                logger.log(Level.SEVERE, "Request contain invalid user ID!");
-        //
-        //                throw new InvalidParameterException("Request must contain valid user ID.");
-        //            }
-        //
-        //            OrdersByUserIdResponse response = OrdersByUserIdResponse.newBuilder()
-        //                .addAllOrders(ordersByUserId(request.getUserId()))
-        //                .build();
-        //            responseObserver.onNext(response);
-        //            responseObserver.onCompleted();
-        //        }
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
