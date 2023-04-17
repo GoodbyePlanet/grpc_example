@@ -6,7 +6,7 @@ from user.v1 import user_pb2_grpc
 from user_service import UserService
 
 
-def server():
+def run_server():
     user_server = grpc.server(futures.ThreadPoolExecutor(max_workers=2))
     user_pb2_grpc.add_UserServiceServicer_to_server(UserService(), user_server)
     port = 50051
@@ -19,4 +19,4 @@ def server():
 
 
 if __name__ == "__main__":
-    server()
+    run_server()
