@@ -2,9 +2,8 @@
 
 'use strict';
 var grpc = require('@grpc/grpc-js');
-var google_protobuf_timestamp_pb = require('google-protobuf/google/protobuf/timestamp_pb.js');
-
 var orders_v1_order_pb = require('../../orders/v1/order_pb.js');
+var google_protobuf_timestamp_pb = require('google-protobuf/google/protobuf/timestamp_pb.js');
 
 function serialize_orders_v1_OrdersByUserIdRequest(arg) {
   if (!(arg instanceof orders_v1_order_pb.OrdersByUserIdRequest)) {

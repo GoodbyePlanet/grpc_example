@@ -7,18 +7,46 @@
 import * as jspb from "google-protobuf";
 import * as google_protobuf_timestamp_pb from "google-protobuf/google/protobuf/timestamp_pb";
 
+export class Item extends jspb.Message { 
+    getId(): number;
+    setId(value: number): Item;
+    getName(): string;
+    setName(value: string): Item;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): Item.AsObject;
+    static toObject(includeInstance: boolean, msg: Item): Item.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: Item, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): Item;
+    static deserializeBinaryFromReader(message: Item, reader: jspb.BinaryReader): Item;
+}
+
+export namespace Item {
+    export type AsObject = {
+        id: number,
+        name: string,
+    }
+}
+
 export class Order extends jspb.Message { 
-    getOrderId(): number;
-    setOrderId(value: number): Order;
+    getId(): number;
+    setId(value: number): Order;
     getUserId(): number;
     setUserId(value: number): Order;
+
+    hasItem(): boolean;
+    clearItem(): void;
+    getItem(): Item | undefined;
+    setItem(value?: Item): Order;
 
     hasOrderDate(): boolean;
     clearOrderDate(): void;
     getOrderDate(): google_protobuf_timestamp_pb.Timestamp | undefined;
     setOrderDate(value?: google_protobuf_timestamp_pb.Timestamp): Order;
-    getTotalAmount(): number;
-    setTotalAmount(value: number): Order;
+    getAmount(): number;
+    setAmount(value: number): Order;
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): Order.AsObject;
@@ -32,10 +60,11 @@ export class Order extends jspb.Message {
 
 export namespace Order {
     export type AsObject = {
-        orderId: number,
+        id: number,
         userId: number,
+        item?: Item.AsObject,
         orderDate?: google_protobuf_timestamp_pb.Timestamp.AsObject,
-        totalAmount: number,
+        amount: number,
     }
 }
 

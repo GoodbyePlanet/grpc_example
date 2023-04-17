@@ -2,7 +2,6 @@
 
 'use strict';
 var grpc = require('@grpc/grpc-js');
-
 var user_v1_user_pb = require('../../user/v1/user_pb.js');
 var orders_v1_order_pb = require('../../orders/v1/order_pb.js');
 

@@ -6,11 +6,17 @@ package orders.v1;
 
 import "google/protobuf/timestamp.proto";
 
+message Item {
+  int32 id = 1;
+  string name = 2;
+}
+
 message Order {
-  int32 order_id = 1;
+  int32 id = 1;
   int32 user_id = 2;
-  google.protobuf.Timestamp order_date = 3;
-  int32 total_amount = 4;
+  Item item = 3;
+  google.protobuf.Timestamp order_date = 4;
+  int32 amount = 5;
 }
 
 message OrdersByUserIdRequest {

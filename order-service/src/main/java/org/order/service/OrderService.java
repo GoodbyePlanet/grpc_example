@@ -17,6 +17,7 @@ import orders.v1.Order;
 import orders.v1.OrderServiceGrpc.OrderServiceImplBase;
 import orders.v1.OrdersByUserIdRequest;
 import orders.v1.OrdersByUserIdResponse;
+import orders.v1.Item;
 
 public class OrderService {
     private static final Logger logger = Logger.getLogger(OrderService.class.getName());
@@ -51,14 +52,14 @@ public class OrderService {
         private List<Order> orders() {
             List<Order> ordersList = new ArrayList<>();
 
-            ordersList.add(Order.newBuilder().setUserId(1).setOrderId(1).setTotalAmount(1000)
-                .setOrderDate(getTimestamp()).build());
-            ordersList.add(Order.newBuilder().setUserId(1).setOrderId(2).setTotalAmount(1960)
-                .setOrderDate(getTimestamp()).build());
-            ordersList.add(Order.newBuilder().setUserId(1).setOrderId(5).setTotalAmount(2960)
-                .setOrderDate(getTimestamp()).build());
-            ordersList.add(Order.newBuilder().setUserId(2).setOrderId(200).setTotalAmount(1560)
-                .setOrderDate(getTimestamp()).build());
+            ordersList.add(Order.newBuilder().setId(1).setUserId(1).setItem(Item.newBuilder().setId(1).setName("pencil").build())
+                .setOrderDate(getTimestamp()).setAmount(1000).build());
+            ordersList.add(Order.newBuilder().setId(2).setUserId(1).setItem(Item.newBuilder().setId(2).setName("book").build())
+                .setOrderDate(getTimestamp()).setAmount(2310).build());
+            ordersList.add(Order.newBuilder().setId(3).setUserId(1).setItem(Item.newBuilder().setId(3).setName("magic stick").build())
+                .setOrderDate(getTimestamp()).setAmount(120).build());
+            ordersList.add(Order.newBuilder().setId(4).setUserId(2).setItem(Item.newBuilder().setId(5).setName("ball").build())
+                .setOrderDate(getTimestamp()).setAmount(129).build());
 
             return ordersList;
         }

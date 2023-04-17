@@ -6,17 +6,27 @@ from typing import ClassVar as _ClassVar, Iterable as _Iterable, Mapping as _Map
 
 DESCRIPTOR: _descriptor.FileDescriptor
 
+class Item(_message.Message):
+    __slots__ = ["id", "name"]
+    ID_FIELD_NUMBER: _ClassVar[int]
+    NAME_FIELD_NUMBER: _ClassVar[int]
+    id: int
+    name: str
+    def __init__(self, id: _Optional[int] = ..., name: _Optional[str] = ...) -> None: ...
+
 class Order(_message.Message):
-    __slots__ = ["order_date", "order_id", "total_amount", "user_id"]
+    __slots__ = ["amount", "id", "item", "order_date", "user_id"]
+    AMOUNT_FIELD_NUMBER: _ClassVar[int]
+    ID_FIELD_NUMBER: _ClassVar[int]
+    ITEM_FIELD_NUMBER: _ClassVar[int]
     ORDER_DATE_FIELD_NUMBER: _ClassVar[int]
-    ORDER_ID_FIELD_NUMBER: _ClassVar[int]
-    TOTAL_AMOUNT_FIELD_NUMBER: _ClassVar[int]
     USER_ID_FIELD_NUMBER: _ClassVar[int]
+    amount: int
+    id: int
+    item: Item
     order_date: _timestamp_pb2.Timestamp
-    order_id: int
-    total_amount: int
     user_id: int
-    def __init__(self, order_id: _Optional[int] = ..., user_id: _Optional[int] = ..., order_date: _Optional[_Union[_timestamp_pb2.Timestamp, _Mapping]] = ..., total_amount: _Optional[int] = ...) -> None: ...
+    def __init__(self, id: _Optional[int] = ..., user_id: _Optional[int] = ..., item: _Optional[_Union[Item, _Mapping]] = ..., order_date: _Optional[_Union[_timestamp_pb2.Timestamp, _Mapping]] = ..., amount: _Optional[int] = ...) -> None: ...
 
 class OrdersByUserIdRequest(_message.Message):
     __slots__ = ["user_id"]
