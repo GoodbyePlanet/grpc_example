@@ -41,5 +41,8 @@ pip install -r requirements.txt
 ./scripts/build-order-proto.sh
 ./scripts/build-user-proto.sh
 
+cd database
+docker-compose up
+cd ..
 ./scripts/run-server.sh
 ```
