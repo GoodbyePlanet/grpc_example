@@ -2,13 +2,11 @@ package org.order.service;
 
 import java.io.IOException;
 import java.security.InvalidParameterException;
-import java.util.ArrayList;
+import java.sql.Connection;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import com.google.protobuf.Timestamp;
 
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
@@ -17,12 +15,15 @@ import orders.v1.Order;
 import orders.v1.OrderServiceGrpc.OrderServiceImplBase;
 import orders.v1.OrdersByUserIdRequest;
 import orders.v1.OrdersByUserIdResponse;
-import orders.v1.Item;
 
 public class OrderService {
     private static final Logger logger = Logger.getLogger(OrderService.class.getName());
 
-    private Server server;
+    Server server;
+
+    private static final Connection dbConnection = DatabaseConnection.getConnection();
+
+    private static OrderRepository orderRepository = new OrderRepository(dbConnection);
 
     private void start() throws IOException {
         int port = 50052;
@@ -42,33 +43,11 @@ public class OrderService {
 
     static class OrderServiceImpl extends OrderServiceImplBase {
 
-        private Timestamp getTimestamp() {
-            return Timestamp.newBuilder()
-                .setSeconds(System.currentTimeMillis() / 1000)
-                .setNanos((int) ((System.currentTimeMillis() % 1000) * 1000000))
-                .build();
-        }
-
-        private List<Order> orders() {
-            List<Order> ordersList = new ArrayList<>();
-
-            ordersList.add(Order.newBuilder().setId(1).setUserId(1).setItem(Item.newBuilder().setId(1).setName("pencil").build())
-                .setOrderDate(getTimestamp()).setAmount(1000).build());
-            ordersList.add(Order.newBuilder().setId(2).setUserId(1).setItem(Item.newBuilder().setId(2).setName("book").build())
-                .setOrderDate(getTimestamp()).setAmount(2310).build());
-            ordersList.add(Order.newBuilder().setId(3).setUserId(1).setItem(Item.newBuilder().setId(3).setName("magic stick").build())
-                .setOrderDate(getTimestamp()).setAmount(120).build());
-            ordersList.add(Order.newBuilder().setId(4).setUserId(2).setItem(Item.newBuilder().setId(5).setName("ball").build())
-                .setOrderDate(getTimestamp()).setAmount(129).build());
-
-            return ordersList;
-        }
-
         private Iterable<Order> ordersByUserId(int userId) {
-            return () -> orders()
-                .stream()
-                .filter(order -> order.getUserId() == userId)
-                .iterator();
+            logger.info("Getting orders by user id " + userId);
+            List<Order> orders = orderRepository.getOrdersByUserId(userId);
+
+            return () -> orders.stream().iterator();
         }
 
         @Override
@@ -92,7 +71,9 @@ public class OrderService {
     public static void main(String[] args) throws IOException, InterruptedException {
         OrderService orderService = new OrderService();
 
-        orderService.start();
-        orderService.server.awaitTermination();
+        if (dbConnection != null) {
+            orderService.start();
+            orderService.server.awaitTermination();
+        }
     }
 }

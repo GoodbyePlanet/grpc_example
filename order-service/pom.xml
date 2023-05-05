@@ -47,6 +47,11 @@
             <artifactId>grpc-googleapis</artifactId>
             <version>1.53.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.24</version>
+        </dependency>
     </dependencies>
 
     <build>

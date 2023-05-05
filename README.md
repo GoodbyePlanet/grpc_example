@@ -12,6 +12,9 @@ api-gateway - Typescript
 
 ```bash
 mvn clean install
+
+cd src/main/java/org/order/service/database
+docker-compose up
 ```
 
 Types will be generated with Maven plugin. Check out `pom.xml` file. 
