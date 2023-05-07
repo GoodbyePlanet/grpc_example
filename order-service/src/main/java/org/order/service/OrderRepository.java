@@ -24,7 +24,6 @@ public class OrderRepository {
         this.dbConnection = dbConnection;
     }
 
-    // TODO: Use hibernate
     public List<Order> getOrdersByUserId(int userId) {
         List<Order> ordersList = new ArrayList<>();
 

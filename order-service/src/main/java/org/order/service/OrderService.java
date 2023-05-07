@@ -53,15 +53,16 @@ public class OrderService {
         @Override
         public void getOrdersByUserId(OrdersByUserIdRequest request, StreamObserver<OrdersByUserIdResponse> responseObserver) {
             logger.info("Get orders by user id " + request);
+            var userId = request.getUserId();
 
-            if (request.getUserId() <= 0) {
+            if (userId <= 0) {
                 logger.log(Level.SEVERE, "Request contain invalid user ID!");
 
                 throw new InvalidParameterException("Request must contain valid user ID.");
             }
 
             OrdersByUserIdResponse response = OrdersByUserIdResponse.newBuilder()
-                .addAllOrders(ordersByUserId(request.getUserId()))
+                .addAllOrders(ordersByUserId(userId))
                 .build();
             responseObserver.onNext(response);
             responseObserver.onCompleted();
