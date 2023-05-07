@@ -5,10 +5,8 @@
     "main": "index.js",
     "scripts": {
         "clean-proto": "rm -rf src/proto ",
-        "build:auth:proto": "sh ./scripts/build-protos-auth.sh ./src/proto && yarn run tsc",
         "build:user:proto": "sh ./scripts/build-user-proto.sh ./src/proto && yarn run tsc",
         "build:order:proto": "sh ./scripts/build-order-proto.sh ./src/proto && yarn run tsc",
-        "server": "ts-node src/server/index.ts",
         "client": "ts-node src/client/userService.ts",
         "lint": "eslint . --ext .ts",
         "dev": "ts-node src/client/server.ts"
